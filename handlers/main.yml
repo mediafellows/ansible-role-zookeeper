@@ -5,3 +5,9 @@
   service:
     name: zookeeper
     state: restarted
+
+- name: setup systemd
+  systemd:
+    daeomon_reload: yes
+    service: zookeeper.service
+    enabled: yes
