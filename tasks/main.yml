@@ -1,0 +1,53 @@
+---
+# tasks file for mediapeers.zookeeper
+
+- name: Install JAVA
+  # TODO:
+
+- name: Ensure zookeeper system user and group exist
+  group:
+    name: "{{ zookeeper_group }}"
+    state: present
+
+- user:
+    name: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+    home: "{{ zookeeper_install_dir }}"
+    state: present
+
+- name: Ensure zookeeper dirs exists
+  file:
+    path: "{{ item }}"
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+    state: directory
+  with_items:
+    - "{{ zookeeper_install_dir }}"
+    - "{{ zookeeper_data_dir }}"
+
+- name: Download Zookeeper tar package and unpack it into install dir
+  unarchive:
+    src: "{{ zookeeper_archive_url }}/{{ zookeeper_version }}/zookeeper-{{ zookeeper_version }}.tar.gz"
+    dest: "{{ zookeeper_install_dir }}"
+    user: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+
+- name: Add configutation file for zookeeper
+  template:
+    src: zoo.cfg.j2
+    dest: "{{ zookeeper_install_dir }}/conf/zoo.cfg"
+
+- name: Add environment file for zookeeper
+  template:
+    src: zookeeper-env.sh
+    dest: "{{ zookeeper_install_dir }}/conf/zookeeper-env.sh"
+
+- name: Add systemd startup config
+  templates:
+    src: zookeeper.service.j2
+    dest: /lib/systemd/system/zookeeper.service
+
+- name: Setup systemd startup
+  systemd:
+    reload: yes
+    service: foo

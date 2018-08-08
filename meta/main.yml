@@ -1,0 +1,21 @@
+galaxy_info:
+  author: Stefan Horning
+  description: Role that installs and sets up Apache Zookeeper
+  company: Mediapeers GmbH
+
+  license: BSD
+  min_ansible_version: 2.5
+
+  platforms:
+    - name: Ubuntu
+        versions:
+          - all
+
+  galaxy_tags:
+    - server
+    - cluster
+    - orchestration
+    - apache
+    - zookeeper
+
+dependencies: []

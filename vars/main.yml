@@ -1,0 +1,4 @@
+---
+# vars file for mediapeers.zookeeper
+
+zookeeper_archive_url: 'https://archive.apache.org/dist/zookeeper'

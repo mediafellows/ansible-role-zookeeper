@@ -1,0 +1,8 @@
+---
+# defaults file for mediapeers.zookeeper
+
+zookeeper_version: 3.4.12
+zookeeper_install_dir: /opt/zookeeper
+zookeeper_data_dir: /var/lib/zookeeper
+zookeeper_user: zookeeper
+zookeeper_group: "{{ zookeeper_user }}"
