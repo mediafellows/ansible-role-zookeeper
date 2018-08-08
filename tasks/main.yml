@@ -42,6 +42,11 @@
     src: zookeeper-env.sh
     dest: "{{ zookeeper_install_dir }}/conf/zookeeper-env.sh"
 
+- name: Add myid file
+  template:
+    src: myid.j2
+    dest: "{{ zookeeper_data_dir }}/myid"
+
 - name: Add systemd startup config
   templates:
     src: zookeeper.service.j2
