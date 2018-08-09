@@ -1,4 +1,6 @@
-# Ansible role zookeeper
+[![Build Status](https://travis-ci.com/mediapeers/ansible-role-zookeeper.svg?branch=master)](https://travis-ci.com/mediapeers/ansible-role-zookeeper)
+
+# Ansible role for Apache ZooKeeper
 
 Ansible role to install and configure [Apache Zookeeper](http://zookeeper.apache.org/). Also installs Java and a systemd config for you to run zookeeper right away.
 

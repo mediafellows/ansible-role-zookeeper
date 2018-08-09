@@ -101,3 +101,6 @@
   notifiy:
     - setup systemd
     - restart zookeeper
+
+- name: Execute handlers before moving on
+  meta: flush_handlers
