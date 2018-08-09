@@ -32,7 +32,7 @@
 
 - name: Output java version info
   debug:
-    var: java_version.stdout_lines
+    var: java_version
 
 # --- Zookeeper install from tarball ---
 
@@ -59,12 +59,16 @@
 
 - name: Download Zookeeper tar package and unpack it into install dir
   unarchive:
-    src: "{{ zookeeper_archive_url }}/{{ zookeeper_version }}/zookeeper-{{ zookeeper_version }}.tar.gz"
+    src: "{{ zookeeper_archive_url }}/zookeeper-{{ zookeeper_version }}/zookeeper-{{ zookeeper_version }}.tar.gz"
+    remote_src: yes
     dest: "{{ zookeeper_install_dir }}"
-    user: "{{ zookeeper_user }}"
+    owner: "{{ zookeeper_user }}"
     group: "{{ zookeeper_group }}"
-  notify:
-    - restart zookeeper
+
+- name: Un-nest the zookeeper dir (as the tarball contains a main dir)
+  shell: cp -rp zookeeper-*/* . && rm -r zookeeper-*/
+  args:
+    chdir: "{{ zookeeper_install_dir }}"
 
 # --- Zookeeper configuration ---
 

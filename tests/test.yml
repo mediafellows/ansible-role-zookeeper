@@ -2,4 +2,4 @@
 - hosts: localhost
   become: true
   roles:
-    - mediapeers.zookeeper
+    - ansible-role-zookeeper
