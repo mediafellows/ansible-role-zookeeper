@@ -21,7 +21,7 @@ The most important ones (that you most likely want to chagne) are listed here (w
 * `zookeeper_data_dir: /var/lib/zookeeper` - Where ZooKeeper stores it's data
 * `zookeeper_autopurge_interval: 0` - You probably want to set this to a non zero value to cleanup old snaphots frequently. Interval in hours.
 * `zookeeper_servers: [ { id: "0", hostname: "127.0.0.1", ports: "2888:3888" } ]` - List of servers in the cluster, with their params.
-* `zookeeper_my_server_id: 0` - Set it to an ID that exists in the list of cluster servers.
+* `zookeeper_my_server_id: 0` - Set it to an ID that exists in the list of cluster servers. This is so the local server can identify iteself.
 
 For more info on how to set this variables consult the [ZooKeeper deployment documentation](https://zookeeper.apache.org/doc/r3.3.3/zookeeperAdmin.html#ch_deployment).
 
