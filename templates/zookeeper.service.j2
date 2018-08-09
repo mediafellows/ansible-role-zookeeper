@@ -8,12 +8,12 @@ Wants=network.target
 
 [Service]
 Type=simple
-User=zookeeper
-Group=zookeeper
+User={{ zookeeper_user }}
+Group={{ zookeeper_group }}
 ExecStart={{ zookeeper_install_dir }}/bin/zkServer.sh start-foreground
+
 Restart=always
 RestartSec=3
-
 TimeoutSec=300
 
 [Install]

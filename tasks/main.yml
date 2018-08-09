@@ -1,8 +1,40 @@
 ---
 # tasks file for mediapeers.zookeeper
 
-- name: Install JAVA
-  # TODO:
+# TODO: split up later into sections marked by comments?
+
+# --- Java setup ---
+
+- name: Add Java apt repo
+  apt_repository:
+    repo: "{{ zookeeper_java_apt_repo }}"
+    state: present
+    update_cache: yes
+  when:
+    - zookeeper_java_install
+    - zookeeper_java_apt_repo is defined
+
+- name: Accept Oracle Licence if Oracle Java is used
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections; echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections creates=/usr/lib/jvm/java-8-oracle
+  when:
+    - zookeeper_java_install
+    - zookeeper_java_apt_package | search('oracle')
+
+- name: Install Java apt package
+  apt:
+    pkg: "{{ zookeeper_java_apt_package }}"
+    state: present
+  when: zookeeper_java_install
+
+- name: Make sure Java is installed and getting it's version
+  command: java -version
+  register: java_version
+
+- name: Output java version info
+  debug:
+    var: java_version.stdout_lines
+
+# --- Zookeeper install from tarball ---
 
 - name: Ensure zookeeper system user and group exist
   group:
@@ -34,6 +66,8 @@
   notify:
     - restart zookeeper
 
+# --- Zookeeper configuration ---
+
 - name: Add configutation file for zookeeper
   template:
     src: zoo.cfg.j2
@@ -45,6 +79,7 @@
   template:
     src: zookeeper-env.sh
     dest: "{{ zookeeper_install_dir }}/conf/zookeeper-env.sh"
+  when: zookeeper_env_variables is defined
   notify:
     - restart zookeeper
 

@@ -1,18 +1,31 @@
 ---
 # defaults file for mediapeers.zookeeper
 
+# Zookeeper version to install:
 zookeeper_version: 3.4.12
+
+# Java install stuff:
+zookeeper_java_apt_repo: 'ppa:webupd8team/java'
+zookeeper_java_apt_package: oracle-java8-installer
+# Set this to false to skip the Java install:
+zookeeper_java_install: true
+
+# JVM min/max heap size:
+zookeeper_jvm_heap_size: 2048m
+
+# Additional ENV variables for zookeeper server (don't use for SERVER_JVMFLAGS).
+# Use list of key->value dicts like this: { ENV_VAR: foo }. Goes to zookeeper-env.sh
+zookeeper_env_variables: []
 
 # Dirs
 zookeeper_install_dir: /opt/zookeeper
 zookeeper_data_dir: /var/lib/zookeeper
 
-# System user/group names
+# System user & group names
 zookeeper_user: zookeeper
 zookeeper_group: "{{ zookeeper_user }}"
 
 # Zookeeperd config settings (using zookeepers defaults here):
-
 zookeeper_tick_time: 2000
 zookeeper_init_limit: 10
 zookeeper_sync_limit: 5
@@ -20,3 +33,9 @@ zookeeper_client_port: 2181
 zookeeper_max_client_connections: 60
 zookeeper_autopurge_retain_count: 3
 zookeeper_autopurge_interval: 0 # disabled
+
+# Host settings:
+zookeeper_my_server_id: 0
+zookeeper_servers:
+  - { id: "0", ip: "127.0.0.1", ports: "2888:3888" }
+

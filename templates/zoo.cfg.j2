@@ -28,5 +28,7 @@ autopurge.snapRetainCount={{ zookeeper_autopurge_retain_count }}
 # Purge task interval in hours. Set to "0" to disable auto purge feature
 autopurge.purgeInterval={{ zookeeper_autopurge_interval }}
 
-# TODO: add server infos here
-# server.<ID>=<IP>:<PORTS>
+# Servers in cluster (by id to match myid configs)
+{% for server in zookeeper_servers %}
+server.{{ server.id }}={{ server.ip }}:{{ server.ports }}
+{% endfor %}
