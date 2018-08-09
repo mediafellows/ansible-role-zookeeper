@@ -37,5 +37,4 @@ zookeeper_autopurge_interval: 0 # disabled
 # Host settings:
 zookeeper_my_server_id: 0
 zookeeper_servers:
-  - { id: "0", ip: "127.0.0.1", ports: "2888:3888" }
-
+  - { id: "0", hostname: "127.0.0.1", ports: "2888:3888" }

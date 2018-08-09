@@ -30,5 +30,5 @@ autopurge.purgeInterval={{ zookeeper_autopurge_interval }}
 
 # Servers in cluster (by id to match myid configs)
 {% for server in zookeeper_servers %}
-server.{{ server.id }}={{ server.ip }}:{{ server.ports }}
+server.{{ server.id }}={{ server.hostname }}:{{ server.ports }}
 {% endfor %}

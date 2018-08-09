@@ -12,7 +12,18 @@ No special requirements. Designed for Ubuntu server 16.04. But might work on any
 
 ## Role Variables
 
+For role variables check `defaults/main.yml`.
+
+The most important ones (that you most likely want to chagne) are listed here (with their default values):
+
 * `zookeeper_version: 3.4.12` - Version of Zookeeper to install
+* `zookeeper_java_install: true` - Set to false if you don't want this role to install Java for you
+* `zookeeper_data_dir: /var/lib/zookeeper` - Where ZooKeeper stores it's data
+* `zookeeper_autopurge_interval: 0` - You probably want to set this to a non zero value to cleanup old snaphots frequently. Interval in hours.
+* `zookeeper_servers: [ { id: "0", hostname: "127.0.0.1", ports: "2888:3888" } ]` - List of servers in the cluster, with their params.
+* `zookeeper_my_server_id: 0` - Set it to an ID that exists in the list of cluster servers.
+
+For more info on how to set this variables consult the [ZooKeeper deployment documentation](https://zookeeper.apache.org/doc/r3.3.3/zookeeperAdmin.html#ch_deployment).
 
 ## Dependencies
 
@@ -27,6 +38,12 @@ Example playbook using this role:
       become: true
       vars:
         zookeeper_version: 3.4.13
+        zookeeper_autopurge_interval: 1
+        zookeeper_my_server_id: 0
+        zookeeper_servers:
+          - { id: 0, hostname: 'node0.zookeeper.internal', ports: "2888:3888" }
+          - { id: 1, hostname: 'node1.zookeeper.internal', ports: "2888:3888" }
+          - { id: 2, hostname: 'node2.zookeeper.internal', ports: "2888:3888" }
       roles:
          - mediapeers.zookeeper
 
