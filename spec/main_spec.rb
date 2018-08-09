@@ -6,6 +6,6 @@ describe "ZooKeeper setup" do
   end
 
   describe file('/opt/zookeeper/conf/zoo.cfg') do
-    its(:content) { should include("tickTime=#{ANSIBLE_VARS.fetch('zookeeper_tick_tiem', 'FAIL')}") }
+    its(:content) { should include("tickTime=#{ANSIBLE_VARS.fetch('zookeeper_tick_time', 'FAIL')}") }
   end
 end
