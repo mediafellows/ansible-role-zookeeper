@@ -1,5 +1,12 @@
 ---
-- hosts: localhost
+
+- name: Test play to be executed by Travis
+  hosts: localhost
   become: true
+  vars:
+    zookeeper_version: 3.4.12
+    zookeeper_jvm_heap_size: 1024m
+    zookeeper_autopurge_retain_count: 2
+    zookeeper_autopurge_interval: 1 # hour
   roles:
     - ansible-role-zookeeper

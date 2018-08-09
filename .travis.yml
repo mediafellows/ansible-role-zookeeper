@@ -2,11 +2,20 @@
 
 sudo: required
 dist: trusty
+addons:
+  apt:
+    update: true
+
 
 language: python
-python: "2.7"
+python: 2.7
 
 install:
+  # Setup ruby to run serverspec tests
+  - ruby -v
+  - gem install serverspec
+
+  # Install Ansible
   - pip install ansible
   - ansible --version
 
@@ -14,4 +23,19 @@ install:
   - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
 
 script:
-  - "ansible-playbook -i tests/inventory tests/test.yml --syntax-check"
+  # Check the role/playbook's syntax.
+  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+
+  # Run the role/playbook with ansible-playbook.
+  - ansible-playbook -i tests/inventory tests/test.yml
+
+  # Run the role/playbook again, checking to make sure it's idempotent.
+  # Allow 3 'changes' as not all tasks can be idempotent.
+  - >
+    ansible-playbook -i $INVENTORY --connection=local $TEST_PLAY
+    | grep -q 'changed=3.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+
+
+  - cat /opt/zookeeper/conf/zoo.cfg
