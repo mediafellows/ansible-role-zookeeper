@@ -98,7 +98,7 @@
   template:
     src: zookeeper.service.j2
     dest: /lib/systemd/system/zookeeper.service
-  notifiy:
+  notify:
     - setup systemd
     - restart zookeeper
 

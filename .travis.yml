@@ -27,7 +27,7 @@ script:
   - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
 
   # Run the role/playbook with ansible-playbook.
-  - ansible-playbook -i tests/inventory tests/test.yml
+  - ansible-playbook -i tests/inventory --connection=local tests/test.yml
 
   # Run the role/playbook again, checking to make sure it's idempotent.
   # Allow 3 'changes' as not all tasks can be idempotent.
