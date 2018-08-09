@@ -8,6 +8,6 @@
 
 - name: setup systemd
   systemd:
-    daeomon_reload: yes
+    daemon_reload: yes
     service: zookeeper.service
     enabled: yes
