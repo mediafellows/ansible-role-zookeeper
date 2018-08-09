@@ -8,8 +8,8 @@ galaxy_info:
 
   platforms:
     - name: Ubuntu
-        versions:
-          - all
+      versions:
+        - all
 
   galaxy_tags:
     - server

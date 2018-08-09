@@ -91,7 +91,7 @@
     - restart zookeeper
 
 - name: Add systemd startup config
-  templates:
+  template:
     src: zookeeper.service.j2
     dest: /lib/systemd/system/zookeeper.service
   notifiy:
