@@ -32,7 +32,7 @@
 
 - name: Output java version info
   debug:
-    var: java_version
+    var: java_version.stderr_lines
 
 # --- Zookeeper install from tarball ---
 

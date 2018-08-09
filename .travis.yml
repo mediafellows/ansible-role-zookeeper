@@ -30,12 +30,12 @@ script:
   - ansible-playbook -i tests/inventory --connection=local tests/test.yml
 
   # Run the role/playbook again, checking to make sure it's idempotent.
-  # Allow 2 'changes' as not all tasks can be idempotent.
+  # Allow 3 'changes' as not all tasks can be idempotent.
   - >
     ansible-playbook -i tests/inventory --connection=local tests/test.yml
-#    | grep -q 'changed=2.*failed=0'
-#    && (echo 'Idempotence test: pass' && exit 0)
-#    || (echo 'Idempotence test: fail' && exit 1)
+    | grep -q 'changed=3.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
 
   # Run serverspec tests
   - rake spec
