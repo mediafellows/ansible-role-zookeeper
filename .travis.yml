@@ -32,10 +32,13 @@ script:
   # Run the role/playbook again, checking to make sure it's idempotent.
   # Allow 3 'changes' as not all tasks can be idempotent.
   - >
-    ansible-playbook -i $INVENTORY --connection=local $TEST_PLAY
-    | grep -q 'changed=3.*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
+    ansible-playbook -i $INVENTORY --connection=local tests/test.yml
+#    | grep -q 'changed=3.*failed=0'
+#    && (echo 'Idempotence test: pass' && exit 0)
+#    || (echo 'Idempotence test: fail' && exit 1)
 
+  # Run serverspec tests
+  - rake spec
 
+  # Output config file
   - cat /opt/zookeeper/conf/zoo.cfg
