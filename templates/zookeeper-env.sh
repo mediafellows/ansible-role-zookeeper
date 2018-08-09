@@ -2,7 +2,7 @@
 # Env file for zookeeper startup.
 # Has to be named zookeeper-env.sh to be loaded by bin/zkEnv.sh (whish is in turn called by zkServer.sh).
 
-{% for key, value in zookeeper_env_variables.items() | sort %}
+{% for key, value in zookeeper_env_variables %}
 {{ key }}={{ value }}
 {% endfor %}
 
